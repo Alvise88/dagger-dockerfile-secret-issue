@@ -1,0 +1,92 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/docker-in-docker
+{
+	"name": "Dockerfile secret issue",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:bullseye",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {
+			"version": "20.10",
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		},
+		"ghcr.io/devcontainers/features/go:1": {
+			"version": "1.21"
+		},
+		"ghcr.io/guiyomh/features/mage:0": {
+			"version": "1.15.0"
+		},
+		"ghcr.io/guiyomh/features/golangci-lint:0": {
+			"version": "1.54.1"
+		}
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"editor.semanticHighlighting.enabled": true,
+				"editor.fontFamily": "'FantasqueSansM Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+				"editor.find.addExtraSpaceOnTop": false,
+				"editor.formatOnPaste": true,
+				"editor.formatOnSave": true,
+				// applicable if you use Go, this is an opt-in flag!
+				"go.toolsManagement.checkForUpdates": "local",
+				"go.useLanguageServer": true,
+				"go.gopath": "/go",
+				"go.buildOnSave": "off",
+				"go.coverOnSingleTest": true,
+				"go.coverOnSingleTestFile": true,
+				"go.lintFlags": [
+					"--fast"
+				],
+				"go.lintTool": "golangci-lint",
+				"go.testTimeout": "300s",
+				"go.coverageDecorator": {
+					"type": "highlight"
+				},
+				"gopls": {
+					"ui.semanticTokens": true
+				},
+				"go.testEnvFile": "${workspaceFolder}/.env",
+				"javascript.validate.enable": false,
+				"standard.enable": true,
+				"standard.autoFixOnSave": true,
+				"terminal.integrated.minimumContrastRatio": 1,
+				"terminal.integrated.fontFamily": "'FantasqueSansM Nerd Font', Menlo, Monaco, 'Courier New', monospace",
+				"window.titleBarStyle": "custom",
+				// Theme setup
+				"workbench.colorTheme": "Catppuccin Mocha",
+				"workbench.iconTheme": "Catppuccin Mocha",
+				"workbench.editor.enablePreview": false
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				// Theme
+				"catppuccin.catppuccin-vsc",
+				"catppuccin.catppuccin-vsc-icons",
+				// Languages
+				"golang.go",
+				"graphql.vscode-graphql-syntax",
+				"redhat.vscode-yaml",
+				"davidanson.vscode-markdownlint",
+				// Tools
+				"ms-azuretools.vscode-docker",
+				"ms-kubernetes-tools.vscode-kubernetes-tools",
+				// Git
+				"eamodio.gitlens",
+				"donjayamanne.githistory",
+				"vivaxy.vscode-conventional-commits"
+			]
+		}
+	},
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": ".devcontainer/setup.sh"
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
